@@ -19,7 +19,6 @@ exports.serveAssets = function(res, asset, callback) {
     if (err) {
       console.log('ERROR: reading assets', err);
     } else {
-            
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.end(data);
       

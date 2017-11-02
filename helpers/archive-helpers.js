@@ -1,6 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+const request = require('request');
+
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -64,8 +66,9 @@ exports.isUrlInList = function(url, callback) {
 
 exports.addUrlToList = function(url, callback) {
   fs.appendFile(exports.paths.list, url, 'utf8', (err) => {
-    if (err) { console.log('ERROR WITH .addUrlToList!'); }
-    
+    if (err) { 
+      console.log('ERROR WITH .addUrlToList!'); 
+    }
     if (callback) {
       callback();
     }
@@ -74,8 +77,6 @@ exports.addUrlToList = function(url, callback) {
 
 exports.isUrlArchived = function(url, callback) {
   fs.readdir(exports.paths.archivedSites, (err, files) => {
-    console.log('this are .isUrlArchived files', files);
-    console.log('this is the url', url);
     var presence = files.reduce((acc, website) => {
       if (url === website) {
         return true;
@@ -91,52 +92,20 @@ exports.isUrlArchived = function(url, callback) {
 };
 
 exports.downloadUrls = function(urls) {
+    // loop through each ULR in the urls array
+  urls.forEach(url => {
+    request('http://' + url, null, (err, response, body) => {
+      if (err) {
+        console.log('ERROR WITH WEBSITE REQUEST');
+      } else {
+        fs.writeFile(exports.paths.archivedSites + `/${url}`, body, (err) => {
+          if (err) {
+            console.log('ERROR IN DOWNLOADIG NEW URLS', err);
+          }
+        });
+      }
+    });
+  });
 
-  
-
+  return;
 };
-
-
-
-
-// exports.readListOfUrls = function(callback) {
-
-// //fs.readFile('site.txt', 'utf8', function(err,data){
-
-//==>callback used is isUrlInList(url = user input, callback = isUrlArchived){
-
-//function() {
-//  if( url is in list) { call is URL archived}
-    
-//  if( url is not in list) {call addUrlToList
-    //addUrlToList(url = user input, callback = serveAssets(res, 'location of loading.html', callback to res.writehead?))}
-//}
-//})
-    
-    
-  
-// };
-
-// exports.isUrlInList = function(url, callback) {
-  //readfile
-// };
-
-// exports.addUrlToList = function(url, callback) {
-//   callback(url);
-// };
-
-// exports.isUrlArchived = function(url = user input, callback = anonymous function that calls addUrlToList or serveAssets){
- // 
-//function() {
-//  if (isUrlArchived === true) { call serveAssests(res, 'location of www.___.com folder', callback?);}
-//  else if (isUrlArchied === false) {serveAssets(res, 'location of loading.html', callback to res.writehead?))} 
-// };
-
-// exports.downloadUrls = function(urls) {
-  //looks into the sites.txt
-  //if there is a new site in the stored data,
-  //then go to that website by sending out a GET request and 
-  //take back the response and parse the data, write the html over to
-  //a file. 
-  
-// };
