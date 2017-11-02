@@ -25,7 +25,7 @@ describe('server', function() {
     });
   });
 
-  describe('archived websites', function () {
+  xdescribe('archived websites', function () {
     describe('GET', function () {
       it('should return the content of a website from the archive', function (done) {
         var fixtureName = 'www.google.com';
@@ -47,12 +47,12 @@ describe('server', function() {
           });
       });
 
-      it('Should 404 when asked for a nonexistent file', function(done) {
+      xit('Should 404 when asked for a nonexistent file', function(done) {
         request.get('/arglebargle').expect(404, done);
       });
     });
 
-    describe('POST', function () {
+    xdescribe('POST', function () {
       it('should append submitted sites to \'sites.txt\'', function(done) {
         var url = 'www.example.com';
 
@@ -155,4 +155,3 @@ describe('archive helpers', function() {
     });
   });
 });
-
