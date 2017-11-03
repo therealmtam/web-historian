@@ -65,13 +65,11 @@ exports.isUrlInList = function(url, callback) {
 };
 
 exports.addUrlToList = function(url, callback) {
-  fs.appendFile(exports.paths.list, url, 'utf8', (err) => {
+  fs.appendFile(this.paths.list, url, 'utf8', (err) => {
     if (err) { 
       console.log('ERROR WITH .addUrlToList!'); 
     }
-    if (callback) {
-      callback();
-    }
+    callback();
   });
 };
 

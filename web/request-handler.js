@@ -49,10 +49,8 @@ const actions = {
     
     req.on('end', function() {
       var post = qs.parse(body);
-      console.log(post.url);
-      archive.addUrlToList(post.url, function() {
-        fs.appendFile();
-      });
+      console.log('------------------------------------------------', post.url);
+      archive.addUrlToList(post.url, function() {});
     });
     
     res.writeHead(201, {'Content-Type': 'text/html'});

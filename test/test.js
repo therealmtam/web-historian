@@ -48,12 +48,12 @@ describe('server', function() {
           });
       });
 
-      xit('Should 404 when asked for a nonexistent file', function(done) {
+      it('Should 404 when asked for a nonexistent file', function(done) {
         request.get('/arglebargle').expect(404, done);
       });
     });
 
-    xdescribe('POST', function () {
+    describe('POST', function () {
       it('should append submitted sites to \'sites.txt\'', function(done) {
         var url = 'www.example.com';
 
